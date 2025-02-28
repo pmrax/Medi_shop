@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Seller Profile</h2>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('seller_dashboard.profile') }}" enctype="multipart/form-data">
+
+                    <!-- Business Details -->
+                    <h5 class="mb-3">Business Information</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Business Name:</label>
+                            <input type="text" class="form-control" name="business_name" 
+                                   value="{{ seller.business_name if seller.business_name else '' }}" required>
+                        </div>
+                        <label class="form-label">Business Category:</label>
+                        <select class="form-control" name="business_category" required>
+                            <option value="">Select Category</option>
+                            <option value="retail_pharmacy" {% if seller.business_details.business_category == 'retail_pharmacy' %}selected{% endif %}>Retail Pharmacy</option>
+                            <option value="wholesale_pharmacy" {% if seller.business_details.business_category == 'wholesale_pharmacy' %}selected{% endif %}>Wholesale Pharmacy</option>
+                            <option value="online_pharmacy" {% if seller.business_details.business_category == 'online_pharmacy' %}selected{% endif %}>Online Pharmacy</option>
+                            <option value="medical_equipment" {% if seller.business_details.business_category == 'medical_equipment' %}selected{% endif %}>Medical Equipment Supplier</option>
+                            <option value="ayurvedic" {% if seller.business_details.business_category == 'ayurvedic' %}selected{% endif %}>Ayurvedic & Herbal Store</option>
+                            <option value="homeopathic" {% if seller.business_details.business_category == 'homeopathic' %}selected{% endif %}>Homeopathic Medicine Seller</option>
+                            <option value="veterinary" {% if seller.business_details.business_category == 'veterinary' %}selected{% endif %}>Veterinary Medicine Supplier</option>
+                            <option value="healthcare_wellness" {% if seller.business_details.business_category == 'healthcare_wellness' %}selected{% endif %}>Healthcare & Wellness Products</option>
+                            <option value="surgical_devices" {% if seller.business_details.business_category == 'surgical_devices' %}selected{% endif %}>Surgical & Medical Devices</option>
+                            <option value="lab_supplies" {% if seller.business_details.business_category == 'lab_supplies' %}selected{% endif %}>Laboratory & Diagnostic Supplies</option>
+                        </select>                        
+                        <div class="col-md-6">
+                            <label class="form-label">Business Website (Optional):</label>
+                            <input type="text" class="form-control" name="business_website" 
+                                   value="{{ seller.business_details.business_website if seller.business_details else '' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Business Description:</label>
+                            <textarea class="form-control" name="business_description">{{ seller.business_details.business_description if seller.business_details else '' }}</textarea>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Profile Image -->
+                    <h5 class="mt-3">Profile Image</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Upload Profile Image:</label>
+                            <input type="file" class="form-control" name="profile_image">
+                        </div>
+                        <div class="col-md-6 text-center">
+                            {% if seller.profile_image %}
+                                <img src="{{ seller.profile_image }}" alt="Profile Image" class="img-thumbnail mt-3" width="150">
+                            {% else %}
+                                <p class="mt-3 text-muted">No profile image uploaded</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Store Logo -->
+                    <h5 class="mt-3">Store Logo</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Upload Store Logo:</label>
+                            <input type="file" class="form-control" name="store_logo">
+                        </div>
+                        <div class="col-md-6 text-center">
+                            {% if seller.store_logo %}
+                                <img src="{{ seller.store_logo }}" alt="Store Logo" class="img-thumbnail mt-3" width="150">
+                            {% else %}
+                                <p class="mt-3 text-muted">No store logo uploaded</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Store Banner -->
+                    <h5 class="mt-3">Store Banner</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Upload Store Banner:</label>
+                            <input type="file" class="form-control" name="store_banner">
+                        </div>
+                        <div class="col-md-6 text-center">
+                            {% if seller.store_banner %}
+                                <img src="{{ seller.store_banner }}" alt="Store Banner" class="img-thumbnail mt-3" width="300">
+                            {% else %}
+                                <p class="mt-3 text-muted">No store banner uploaded</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Contact & Regulatory Information -->
+                    <h5 class="mt-3">Regulatory & Contact Information</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Nmae:</label>
+                            <input type="text" class="form-control" name="full_name" 
+                                   value="{{ seller.full_name if seller.full_name else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Phone Number:</label>
+                            <input type="text" class="form-control" name="phone_number" 
+                                   value="{{ seller.phone_number if seller.phone_number else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email:</label>
+                            <input type="email" class="form-control" name="email" 
+                                   value="{{ seller.email if seller.email else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Pharmacy License Number:</label>
+                            <input type="text" class="form-control" name="pharmacy_license" 
+                                   value="{{ seller.pharmacy_license if seller.pharmacy_license else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">GST Number:</label>
+                            <input type="text" class="form-control" name="gst_number" 
+                                   value="{{ seller.gst_number if seller.gst_number else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Drug License Number:</label>
+                            <input type="text" class="form-control" name="drug_license_number" 
+                                   value="{{ seller.drug_license_number if seller.drug_license_number else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Drug License Expiry Date:</label>
+                            <input type="date" class="form-control" name="drug_license_expiry" 
+                                   value="{{ seller.drug_license_expiry if seller.drug_license_expiry else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Seller Type:</label>
+                            <select class="form-control" name="seller_type" required>
+                                <option value="individual" {% if seller.seller_type == 'individual' %}selected{% endif %}>Individual</option>
+                                <option value="business" {% if seller.seller_type == 'business' %}selected{% endif %}>Business</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Address -->
+                    <h5 class="mt-3">Business Address</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Shop Address:</label>
+                            <input type="text" class="form-control" name="shop_address" 
+                                   value="{{ seller.address.shop_address if seller.address else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">City, District:</label>
+                            <input type="text" class="form-control" name="city" 
+                                   value="{{ seller.address.city if seller.address else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">State:</label>
+                            <input type="text" class="form-control" name="state" 
+                                   value="{{ seller.address.state if seller.address else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Pincode:</label>
+                            <input type="text" class="form-control" name="pincode" 
+                                   value="{{ seller.address.pincode if seller.address else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Country:</label>
+                            <input type="text" class="form-control" name="country" 
+                                   value="{{ seller.address.country if seller.address else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Landmark:</label>
+                            <input type="text" class="form-control" name="landmark" 
+                                   value="{{ seller.address.landmark if seller.address else '' }}" required>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Bank Details -->
+                    <h5 class="mt-3">Bank Details</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Account Holder Name:</label>
+                            <input type="text" class="form-control" name="account_holder" 
+                                   value="{{ seller.bank_details.account_holder if seller.bank_details else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Account Number:</label>
+                            <input type="text" class="form-control" name="account_number" 
+                                   value="{{ seller.bank_details.account_number if seller.bank_details else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">IFSC Code:</label>
+                            <input type="text" class="form-control" name="ifsc_code" 
+                                   value="{{ seller.bank_details.ifsc_code if seller.bank_details else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">UPI ID (Optional):</label>
+                            <input type="text" class="form-control" name="upi_id" 
+                                   value="{{ seller.bank_details.upi_id if seller.bank_details else '' }}">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('seller_dashboard.home') }}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

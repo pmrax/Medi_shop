@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .actions button {
+            margin: 5px;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .edit-btn {
+            background-color: orange;
+            color: white;
+        }
+        .delete-btn {
+            background-color: red;
+            color: white;
+        }
+        .stock-btn {
+            background-color: green;
+            color: white;
+        }
+        .add-product {
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .description {
+            max-width: 300px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Manage Products</h2>
+
+    <a href="{{ url_for('seller_product.add_product') }}" class="add-product">+ Add New Product</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Composition</th>
+                <th>Description</th>
+                <th>Interactions</th>
+                <th>Uses</th>
+                <th>Dosage</th>
+                <th>Side Effects</th>
+                <th>Substitutes</th>
+                <th>Return Policy</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in listings %}
+            <tr>
+                <td>
+                    {% if product.medicine.image_url %}
+                        <img src="{{ product.medicine.image_url }}" alt="{{ product.medicine.name }}">
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+                <td>{{ product.medicine.name }}</td>
+                <td>{{ product.medicine.brand }}</td>
+                <td>{{ product.medicine.category }}</td>
+                <td>{{ product.medicine.composition }}</td>
+                <td class="description">{{ product.medicine.description }}</td>
+                <td class="description">{{ product.medicine.interactions }}</td>
+                <td class="description">{{ product.medicine.uses }}</td>
+                <td>{{ product.medicine.dosage }}</td>
+                <td class="description">{{ product.medicine.side_effects }}</td>
+                <td class="description">{{ product.medicine.substitutes }}</td>
+                <td>{{ product.return_policy }}</td>
+                <td>₹{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+                <td class="actions">
+                    <a href="{{ url_for('seller_product.edit_product', listing_id=product._id) }}">
+                        <button class="edit-btn">Edit</button>
+                    </a>
+                    <form action="{{ url_for('seller_product.delete_product', listing_id=product._id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="delete-btn" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                    <form action="{{ url_for('seller_product.update_stock', listing_id=product._id) }}" method="POST" style="display:inline;">
+                        <input type="number" name="stock" value="{{ product.stock }}" min="0" required>
+                        <button type="submit" class="stock-btn">Update Stock</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

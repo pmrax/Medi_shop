@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - E-Commerce</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Customer Profile</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ url_for('profile.profile') }}" method="POST">
+                            <div class="text-center mb-3">
+                                <img src="{{ customer.profile_image or url_for('static', filename='images/default-profile.png') }}" 
+                                     class="rounded-circle" width="150" height="150" alt="Profile Image">
+                                <input type="text" class="form-control mt-2" name="profile_image" 
+                                       placeholder="Enter Cloudinary image URL">
+                            </div>
+
+                            <h5>Personal Information</h5>
+                            <div class="mb-3">
+                                <label for="full_name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="full_name" name="full_name" 
+                                       value="{{ customer.address.full_name or '' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="phone" name="phone" 
+                                       value="{{ customer.address.phone or '' }}" required>
+                            </div>
+
+                            <h5>Address Information</h5>
+                            <div class="mb-3">
+                                <label for="street" class="form-label">Street</label>
+                                <input type="text" class="form-control" id="street" name="street" 
+                                       value="{{ customer.address.street or '' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="city" name="city" 
+                                       value="{{ customer.address.city or '' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="town" class="form-label">Town</label>
+                                <input type="text" class="form-control" id="town" name="town" 
+                                       value="{{ customer.address.town or '' }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="village" class="form-label">Village</label>
+                                <input type="text" class="form-control" id="village" name="village" 
+                                       value="{{ customer.address.village or '' }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="pincode" class="form-label">Pincode</label>
+                                <input type="text" class="form-control" id="pincode" name="pincode" 
+                                       value="{{ customer.address.pincode or '' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="state" class="form-label">State</label>
+                                <input type="text" class="form-control" id="state" name="state" 
+                                       value="{{ customer.address.state or '' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="country" class="form-label">Country</label>
+                                <input type="text" class="form-control" id="country" name="country" 
+                                       value="{{ customer.address.country or '' }}" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{{ url_for('dashboard.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

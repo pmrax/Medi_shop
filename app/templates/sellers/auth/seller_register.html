@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Registration - Medishop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sellers/css/auth/seller_register.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Become a Seller on Medishop</h2>
+        <form action="{{ url_for('seller_auth.register') }}" method="POST">
+            <!-- Personal & Business Details -->
+            <label>Full Name</label>
+            <input type="text" name="full_name" required>
+
+            <label>Business Name (Pharmacy Name)</label>
+            <input type="text" name="business_name" required>
+
+            <label>Email Address</label>
+            <input type="email" name="email" required>
+
+            <label>Phone Number</label>
+            <input type="text" name="phone_number" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" required>
+
+            <!-- Terms & Conditions -->
+            <label>
+                <input type="checkbox" name="terms" required> I agree to the Terms & Conditions
+            </label>
+
+            <button type="submit">Register</button>
+        </form>
+        <p>Already a seller? <a href="{{ url_for('seller_auth.login') }}">Login here</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+🔹 Required Data for Seller Registration
+Here’s a breakdown of the essential information a seller should provide:
+
+1️⃣ Personal & Business Details
+Full Name (Owner’s name)
+Business Name (Pharmacy name)
+Email Address (For communication & login)
+Phone Number (Primary contact)
+Password & Confirm Password (For authentication)
+2️⃣ Business & Pharmacy Information
+Pharmacy License Number (Mandatory for selling medicines)
+License Document Upload (PDF or image of the license)
+GST Number (For taxation in India, if applicable)
+Drug License Expiry Date (For verification)
+Type of Seller:
+Retailer (Local pharmacy)
+Distributor (Bulk medicine supplier)
+Manufacturer (Owns medicine brands)
+3️⃣ Business Address (For Delivery & Verification)
+Shop Address
+City
+State
+Pincode
+Country
+Landmark (Optional)
+Latitude & Longitude (For location-based services)
+4️⃣ Bank & Payment Details
+Bank Account Holder Name
+Bank Account Number
+IFSC Code
+UPI ID (Optional)
+PAN Card Number (For taxation compliance)
+5️⃣ Additional Compliance & Documents
+Aadhaar / National ID (For identity verification)
+Company Registration Certificate (If applicable)
+Return & Cancellation Policy (Set by the seller)
+Terms & Conditions Agreement (Checkbox to accept platform policies)
+6️⃣ Profile Picture & Store Branding
+Seller Profile Image (Optional)
+Store Logo
+Store Banner Image (For better UI in seller dashboard)
+🔹 Why These Details?
+✅ Legal Compliance: Ensures only verified sellers list medicines.
+✅ Trust & Transparency: Buyers feel confident when ordering from verified sellers.
+✅ Seamless Transactions: Bank details help in commission payouts.
+✅ Location-Based Selling: Address & coordinates help in logistics and order fulfillment.
+
+🔹 Future Enhancements
+🔥 KYC Verification: Integrate an API to verify pharmacy license & seller identity.
+🔥 Live Seller Dashboard: Track orders, earnings, and stock.
+🔥 Seller Ratings & Reviews: Customers can rate sellers based on service.
+
+Would you like me to start coding the seller registration system? 🚀
+
+
+
+
+
+

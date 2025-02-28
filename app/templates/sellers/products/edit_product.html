@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .update-btn {
+            background-color: green;
+            color: white;
+        }
+        .cancel-btn {
+            background-color: gray;
+            color: white;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Edit Product</h2>
+
+    <form action="{{ url_for('seller_product.edit_product', listing_id=listing._id) }}" method="POST" enctype="multipart/form-data">
+        <!-- Medicine Details -->
+        <label for="name">Medicine Name</label>
+        <input type="text" name="name" id="name" value="{{ listing.medicine.name }}" required>
+
+        <label for="brand">Brand</label>
+        <input type="text" name="brand" id="brand" value="{{ listing.medicine.brand }}" required>
+
+        <label for="category">Category</label>
+        <input type="text" name="category" id="category" value="{{ listing.medicine.category }}" required>
+
+        <label for="composition">Composition</label>
+        <input type="text" name="composition" id="composition" value="{{ listing.medicine.composition }}" required>
+
+        <label for="description">Description</label>
+        <textarea name="description" id="description" required>{{ listing.medicine.description }}</textarea>
+
+        <label for="uses">Uses</label>
+        <textarea name="uses" id="uses" required>{{ listing.medicine.uses }}</textarea>
+
+        <label for="dosage">Dosage</label>
+        <textarea name="dosage" id="dosage" required>{{ listing.medicine.dosage }}</textarea>
+
+        <label for="side_effects">Side Effects</label>
+        <textarea name="side_effects" id="side_effects" required>{{ listing.medicine.side_effects }}</textarea>
+
+        <label for="interactions">Interactions</label>
+        <textarea name="interactions" id="interactions" required>{{ listing.medicine.interactions }}</textarea>
+
+        <label for="substitutes">Substitutes</label>
+        <textarea name="substitutes" id="substitutes">{{ listing.medicine.substitutes }}</textarea>
+
+        <label for="return_policy">Return Policy</label>
+        <textarea name="return_policy" id="return_policy">{{ listing.return_policy }}</textarea>
+
+        <!-- Seller Listing Details -->
+        <label for="price">Price (₹)</label>
+        <input type="number" name="price" id="price" value="{{ listing.price }}" step="0.01" required>
+
+        <label for="stock">Stock</label>
+        <input type="number" name="stock" id="stock" value="{{ listing.stock }}" min="0" required>
+
+        <!-- Image Upload -->
+        <label for="image">Product Image</label>
+        {% if listing.medicine.image_url %}
+            <img src="{{ listing.medicine.image_url }}" alt="Current Image">
+        {% endif %}
+        <input type="file" name="image" id="image">
+
+        <!-- Buttons -->
+        <button type="submit" class="update-btn">Update Product</button>
+    </form>
+
+    <a href="{{ url_for('seller_product.manage_products') }}" class="cancel-btn">Cancel</a>
+
+</body>
+</html>
